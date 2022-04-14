@@ -23,36 +23,7 @@ public class ItemsManager : MonoBehaviour
 
 	public void InitSlots ()
 	{
-
-
-
-		for (int i = 0; i < ItemsList.Count; i++)
-		{
-			if (ItemsList.Count > Buttons.Count)
-			{
-				foreach (ItemSlot slot in Buttons)
-				{
-					if (slot.item == null)
-					{
-						return;
-
-					}
-				}
-			}
-			else if (Buttons.Count > ItemsList.Count)
-			{
-				foreach (ItemSlot slot in Buttons)
-				{
-					if (slot.item = null)
-					{
-						Destroy(slot);
-					}
-				}
-			}
-			Buttons[i].GetComponent<ItemSlot>().item = ItemsList[i];
-			Buttons[i].GetComponent<Image>().sprite = ItemsList[i].item_icon;
-		}
-		
+		InitButtonsArray();		
 	}
 
 	private void InitButtonsArray()
@@ -63,8 +34,18 @@ public class ItemsManager : MonoBehaviour
 	public void AddItem (Item_data _item)
 	{
 		ItemsList.Add(_item);
+		GameObject slot = Instantiate(slotPrefab, this.transform);
+		slot.GetComponent<ItemSlot>().item = _item;
+		slot.GetComponent<Image>().sprite= _item.item_icon;				
 		InitSlots();
 	}
+
+	public void RemoveItem(Item_data _item)
+    {
+		Destroy(Buttons[ItemsList.IndexOf(_item)].gameObject);
+		Buttons.Remove(Buttons[ItemsList.IndexOf(_item)]);
+		ItemsList.Remove(_item);
+    }
 
 	//DEBUG
 	//DEBUG

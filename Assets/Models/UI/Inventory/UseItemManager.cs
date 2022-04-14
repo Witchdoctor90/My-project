@@ -31,8 +31,7 @@ public class UseItemManager : MonoBehaviour
 		if (currItem is Weapon_Item_data)
 		{
 			weaponEquipEvent.Invoke((Weapon_Item_data)currItem);
-			_itemsManager.ItemsList.Remove(currItem);
-			_itemsManager.InitSlots();
+			_itemsManager.RemoveItem(currItem);
 		}
 
 
@@ -42,11 +41,7 @@ public class UseItemManager : MonoBehaviour
 			{
 				itemUseEvent.Invoke((UsableItemData)currItem);
 			}
-			_itemsManager.ItemsList.Remove(currItem);
-			_itemsManager.Buttons.Remove(_itemsManager.selectedSlot);
-			Destroy(_itemsManager.selectedSlot.gameObject);
-			_itemsManager.InventoryUpdate.Invoke();
-			_itemsManager.Buttons = _itemsManager.GetComponentsInChildren<ItemSlot>().ToList();
+			_itemsManager.RemoveItem(currItem);
 		}
 
 
