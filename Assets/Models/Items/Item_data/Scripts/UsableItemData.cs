@@ -13,5 +13,6 @@ public class UsableItemData : Item_data
 		}
 	}
 
+	public int healPointsCount;
     
 }

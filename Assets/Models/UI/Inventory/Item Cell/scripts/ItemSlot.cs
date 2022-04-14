@@ -3,20 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[System.Serializable]
+public class SelectMeEvent : UnityEvent<ItemSlot>
+{
+
+}
+
 public class ItemSlot : MonoBehaviour
 {
-	[SerializeField] private ItemsManager _itemsManager;
+	private UIManager _uiManager;
 	public int index;
 	public int amount;
-	public bool isEmpty;
 	public Item_data item;
-
 
 	private void Start()
     {
-		_itemsManager = GameObject.Find("Items").GetComponent<ItemsManager>();
+		_uiManager = GameObject.Find("Inventory").GetComponent<UIManager>();
     }
 
+	public void SelectMe()
+    {
+        _uiManager.selectSlotEvent.Invoke(this);
+    }
 
+	public void ShowDesc()
+    {
+		_uiManager._descriptionPanel.SetActive(true);
+		_uiManager._descPanelController.UpdateText();
+    }
+
+	
 
 }
+

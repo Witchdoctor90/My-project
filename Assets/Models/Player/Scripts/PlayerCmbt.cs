@@ -16,20 +16,41 @@ public class PlayerCmbt : MonoBehaviour
 	[SerializeField] private PlayerStats _playerStats;
 	[SerializeField] private Equipment _equipment;
 	public LayerMask enemyLayer;
+	public int health = 20;
 	public int damage = 2;
 	public int playerCritDamage;
 	public int playerCritChance;
 	public float attackRange = 5f;
-	
 
+	public const int PLAYER_DAMAGE = 2;
+	public const int PLAYER_MAXHEALTH = 20;
+	public const int PLAYER_CRIT_DAMAGE = 4;
+	public const int PLAYER_CRIT_CHANCE = 20;
+	public void UpdateStats()
+	{
+		if (_equipment.weaponSlot.weapon)
+		{ 
+			damage += _equipment.weaponSlot.weapon.damageBoost;
+			playerCritDamage += _equipment.weaponSlot.weapon.critDamage;
+			playerCritChance += _equipment.weaponSlot.weapon.critChance;
+		}		
+		else
+        {
+			damage = PLAYER_DAMAGE;
+			playerCritDamage = PLAYER_CRIT_DAMAGE;
+			playerCritChance = PLAYER_CRIT_CHANCE;
+        }
+	}
 
-
-	public void Equip(Weapon_item_data _weapon)
+	public void Heal(UsableItemData healingItem)
     {
-		_equipment.weapon = _weapon;
+		health += healingItem.healPointsCount;
     }
 
-	public void Attack ()
+    
+
+
+    public void Attack ()
 	{ 
 		anim.SetTrigger ("Attack"); 	
 		Collider2D[] targets = Physics2D.OverlapCircleAll (_player.position, attackRange, enemyLayer);

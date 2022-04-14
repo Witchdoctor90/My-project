@@ -18,20 +18,18 @@ public class InputManager : MonoBehaviour
 		_playerCtrl._movement.x = Input.GetAxisRaw ("Horizontal");
 		_playerCtrl._movement.y = Input.GetAxisRaw ("Vertical");
 
-		if (Input.GetAxisRaw ("Horizontal") != 0 || Input.GetAxisRaw ("Vertical") != 0) {
-			_playerCtrl.MovePosition ();
-			_anim.SetFloat ("lastMoveX", Input.GetAxisRaw ("Horizontal"));
-			_anim.SetFloat ("lastMoveY", Input.GetAxisRaw ("Vertical"));
-		}
 
-		if (Input.GetMouseButtonDown (0)) {
+
+		if (Input.GetMouseButtonDown (0) && _playerCtrl.isActiveAndEnabled) {
 			_playerCtrl.OnAttack.Invoke ();
 		}
 
 		if (Input.GetKeyDown (KeyCode.I)) {
 			if (inventory.activeInHierarchy) {
+				GetComponent<PlayerCtrl>().enabled = true;
 				inventory.SetActive (false);
 			} else {
+				GetComponent<PlayerCtrl>().enabled = false;
 				inventory.SetActive (true);
 			}
 		}
