@@ -18,6 +18,7 @@ public class PlayerCmbt : MonoBehaviour
 	public LayerMask enemyLayer;
 	public int health = 20;
 	public int damage = 2;
+	public int defense = 0;
 	public int playerCritDamage;
 	public int playerCritChance;
 	public float attackRange = 5f;
@@ -26,13 +27,15 @@ public class PlayerCmbt : MonoBehaviour
 	public const int PLAYER_MAXHEALTH = 20;
 	public const int PLAYER_CRIT_DAMAGE = 4;
 	public const int PLAYER_CRIT_CHANCE = 20;
+	public const int PLAYER_DEFENSE = 0;
 	public void UpdateStats()
 	{
+		//WEAPON
 		if (_equipment.weaponSlot.weapon)
 		{ 
-			damage += _equipment.weaponSlot.weapon.damageBoost;
-			playerCritDamage += _equipment.weaponSlot.weapon.critDamage;
-			playerCritChance += _equipment.weaponSlot.weapon.critChance;
+			damage = PLAYER_DAMAGE + _equipment.weaponSlot.weapon.damageBoost;
+			playerCritDamage = PLAYER_CRIT_DAMAGE + _equipment.weaponSlot.weapon.critDamage;
+			playerCritChance = PLAYER_CRIT_CHANCE + _equipment.weaponSlot.weapon.critChance;
 		}		
 		else
         {
@@ -40,6 +43,18 @@ public class PlayerCmbt : MonoBehaviour
 			playerCritDamage = PLAYER_CRIT_DAMAGE;
 			playerCritChance = PLAYER_CRIT_CHANCE;
         }
+		//WEAPON
+
+		//ARMOR
+		if(_equipment.armorSlot.armor)
+        {
+			defense = PLAYER_DEFENSE + _equipment.armorSlot.armor.defensePoints;
+        }
+		else
+        {
+			defense = PLAYER_DEFENSE;
+        }
+		//ARMOR
 	}
 
 	public void Heal(UsableItemData healingItem)

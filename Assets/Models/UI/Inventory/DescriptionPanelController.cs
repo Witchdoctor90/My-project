@@ -12,32 +12,34 @@ public class DescriptionPanelController : MonoBehaviour
     
     private string attributesString()
     {
-        
-        if(_uiManager._itemsManager.selectedSlot.item is Weapon_Item_data)
+        switch (_uiManager._itemsManager.selectedSlot.item.GetType().Name)
         {
-            return
-                ("damage:" + (_uiManager._itemsManager.selectedSlot.item as Weapon_Item_data).damageBoost + System.Environment.NewLine +
-                "CritDamage:" + (_uiManager._itemsManager.selectedSlot.item as Weapon_Item_data).critDamage + System.Environment.NewLine +
-                "CritChance:" + (_uiManager._itemsManager.selectedSlot.item as Weapon_Item_data).critChance);
-        }
-        else if(_uiManager._itemsManager.selectedSlot.item is UsableItemData)
-        {
-            return("Heals :" + (_uiManager._itemsManager.selectedSlot.item as UsableItemData).healPointsCount);
-        }
-        return "lol nothing here";              
+            case (nameof(Weapon_Item_data)):            
+                 return
+                ("DMG " + "+ " + (_uiManager._itemsManager.selectedSlot.item as Weapon_Item_data).damageBoost + System.Environment.NewLine +
+                "CritDMG " + "+ " + (_uiManager._itemsManager.selectedSlot.item as Weapon_Item_data).critDamage + System.Environment.NewLine +
+                "CritChance " + "+ " + (_uiManager._itemsManager.selectedSlot.item as Weapon_Item_data).critChance);
+            case (nameof(UsableItemData)):
+                return ("HP " + "+ " + (_uiManager._itemsManager.selectedSlot.item as UsableItemData).healPointsCount);
+            case (nameof(ArmorItemData)):
+                return ("Def " + "+ " + (_uiManager._itemsManager.selectedSlot.item as ArmorItemData).defensePoints);
+            default: return ("lol nothing here");
+        }            
     }
 
     public string UseButtonString()
     {
-        if(_uiManager._itemsManager.selectedSlot.item is Weapon_Item_data)
+        switch (_uiManager._itemsManager.selectedSlot.item.GetType().Name)
         {
-            return ("Equip");
+            case (nameof(Weapon_Item_data)):
+                return ("Equip");
+            case (nameof(ArmorItemData)):
+                return ("Equip");
+            case (nameof(UsableItemData)):
+                return ("Use");
+            default: 
+                return "lol nothing here";
         }
-        else if (_uiManager._itemsManager.selectedSlot.item is UsableItemData)
-        {
-            return ("Use");
-        }
-        return "lol nothing here";
     }
     
     public void UpdateText()

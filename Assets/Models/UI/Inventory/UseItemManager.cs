@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class WeaponEquipEvent : UnityEvent<Weapon_Item_data>
+public class EquipEvent : UnityEvent<EquipmentItemData>
 {
 
 }
@@ -20,7 +20,7 @@ public class UseItemManager : MonoBehaviour
 {
 	[SerializeField]private ItemsManager _itemsManager;
 	[SerializeField]Equipment _equipment;
-	public WeaponEquipEvent weaponEquipEvent;
+	public EquipEvent EquipEvent;
 	public ItemUseEvent itemUseEvent;
 	
 
@@ -28,24 +28,27 @@ public class UseItemManager : MonoBehaviour
 	public void OnUseItem ()
 	{
 		Item_data currItem = _itemsManager.selectedSlot.item;
-		if (currItem is Weapon_Item_data)
-		{
-			weaponEquipEvent.Invoke((Weapon_Item_data)currItem);
-			_itemsManager.RemoveItem(currItem);
+		
+        switch (currItem.GetType().Name)
+        {
+			case nameof(UsableItemData):
+				if ((currItem as UsableItemData).healPointsCount != 0)
+				{
+					itemUseEvent.Invoke((UsableItemData)currItem);
+				}
+				_itemsManager.RemoveItem(currItem);
+				break;
+			case nameof(Weapon_Item_data):
+				EquipEvent.Invoke((Weapon_Item_data)currItem);
+				_itemsManager.RemoveItem(currItem);
+				break;
+			case nameof(ArmorItemData):
+				EquipEvent.Invoke((ArmorItemData)currItem);
+				_itemsManager.RemoveItem(currItem);
+				break;
+
+
 		}
-
-
-		else if (currItem is UsableItemData)
-		{
-			if ((currItem as UsableItemData).healPointsCount != 0)
-			{
-				itemUseEvent.Invoke((UsableItemData)currItem);
-			}
-			_itemsManager.RemoveItem(currItem);
-		}
-
-
-
 
 
     }

@@ -11,17 +11,30 @@ public class Equipment : MonoBehaviour
 	[SerializeField] private PlayerCmbt _playerCmbt;
     [SerializeField] private ItemsManager _itemsManager;
     public WeaponSlot weaponSlot;
+    public ArmorSlot armorSlot;
 
 
-    public void Equip(Weapon_Item_data _weapon)
+    public void Equip(EquipmentItemData currEquipment)
     {
-		weaponSlot.weapon = _weapon;
-        InitEquipmentSlot();
-        _playerCmbt.UpdateStats();
+        switch (currEquipment.GetType().Name)
+        {
+            case (nameof(Weapon_Item_data)):
+                weaponSlot.weapon = currEquipment as Weapon_Item_data;
+                InitEquipmentSlots();
+                _playerCmbt.UpdateStats();
+                break;
+
+            case (nameof(ArmorItemData)):
+                armorSlot.armor = currEquipment as ArmorItemData;
+                InitEquipmentSlots();
+                _playerCmbt.UpdateStats();
+                break;
+        }
     }
     
-    public void InitEquipmentSlot()
+    public void InitEquipmentSlots()
     {
+    //WEAPON
         if (weaponSlot.weapon != null)
         {
             weaponSlot.gameObject.GetComponent<Image>().sprite = weaponSlot.weapon.item_icon;
@@ -30,14 +43,37 @@ public class Equipment : MonoBehaviour
         {
             weaponSlot.gameObject.GetComponent<Image>().sprite = null;
         }
+    //WEAPON
+
+    //ARMOR
+        if(armorSlot.armor != null)
+        {
+            armorSlot.gameObject.GetComponent<Image>().sprite = armorSlot.armor.item_icon;
+        }
+        else
+        {
+            armorSlot.gameObject.GetComponent<Image>().sprite = null;
+        }
+    //ARMOR
     }    
 
-    public void UnEquip()
+    public void UnEquip(EquipmentItemData _equipment)
     {
-        _itemsManager.AddItem(weaponSlot.weapon);
-        weaponSlot.weapon = null;
-        InitEquipmentSlot();
-        _playerCmbt.UpdateStats();
+        switch (_equipment.GetType().Name)
+        {
+            case (nameof(Weapon_Item_data)):
+                _itemsManager.AddItem(_equipment as Item_data);
+                weaponSlot.weapon = null;
+                InitEquipmentSlots();
+                _playerCmbt.UpdateStats();
+                break;
+            case (nameof(ArmorItemData)):
+                _itemsManager.AddItem(_equipment as Item_data);
+                armorSlot.armor = null;
+                InitEquipmentSlots();
+                _playerCmbt.UpdateStats();
+                break;
+        }
     }
 
 }

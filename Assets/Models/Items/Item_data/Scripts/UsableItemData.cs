@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 
 
-[CreateAssetMenu(fileName = "Usable", menuName = "UsableItem")]
+[CreateAssetMenu(fileName = "Usable", menuName = "Item/UsableItem")]
 public class UsableItemData : Item_data
 {
 	public new Type itemType {

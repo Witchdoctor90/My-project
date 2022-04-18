@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "new Weapon", menuName = "Weapon")]
-public class Weapon_Item_data : Item_data
+[CreateAssetMenu(fileName = "new Weapon", menuName = "Item/Weapon")]
+public class Weapon_Item_data : EquipmentItemData
 {
 	public new Type itemType
     {

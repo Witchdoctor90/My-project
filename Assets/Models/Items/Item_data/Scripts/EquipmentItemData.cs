@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponSlot : MonoBehaviour
+public class EquipmentItemData : Item_data
 {
-    public Weapon_Item_data weapon;
+    
 }
