@@ -18,7 +18,7 @@ public class ItemSlot : MonoBehaviour
 
 	private void Start()
     {
-		_uiManager = GameObject.Find("Inventory").GetComponent<UIManager>();
+		_uiManager = GameObject.Find("UI").GetComponent<UIManager>();
     }
 
 	public void SelectMe()

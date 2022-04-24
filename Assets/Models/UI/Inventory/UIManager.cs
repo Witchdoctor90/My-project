@@ -11,12 +11,12 @@ public class SelectSlotEvent : UnityEvent<ItemSlot>
 
 public class UIManager : MonoBehaviour
 {
-    public ItemsManager _itemsManager;
     [SerializeField] private Equipment _equipment;
+    public ItemsManager _itemsManager;
     public GameObject _descriptionPanel;
     public GameObject _inventoryPanel;
     public DescriptionPanelController _descPanelController;
-
+    public HealthBar _healthBar;
     public SelectSlotEvent selectSlotEvent;
 
     private void Start()

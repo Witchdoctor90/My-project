@@ -9,21 +9,30 @@ public class OnHitEvents : UnityEvent<int>
 	
 }
 
-
-public class Enemy : MonoBehaviour
+public class EnemyAI : MonoBehaviour
 {
-
 	[SerializeField] private Animator anim;
-
-	
+	[SerializeField] private Rigidbody2D _rb;
+			
 	public new BoxCollider2D collider;
-	[Range (0, 100)]public int health = 20;
+	public int health = 20;
+	public int damage = 2;
 	public OnHitEvents OnHit;
 	public UnityEvent OnDeath;
 
+	void Start ()
+	{
+		anim.SetFloat ("Health", health);
+		
+		
+	}
+    private void Update()
+    {
+		
+    }
 
 
-	public void TakeDamage (int damage)
+    public void TakeDamage (int damage)
 	{
 		health -= damage;
 		Debug.Log (health);
@@ -35,22 +44,10 @@ public class Enemy : MonoBehaviour
 		}
 	}
 
-	void Start ()
-	{
-		anim.SetFloat ("Health", health);
-	}
 
 
+		
 
-	public void Death ()
-	{
-		Destroy(gameObject);
-	}
+    public void Death() => Destroy(gameObject);
 
-	void Update ()
-	{
-
-
-       
-	}
 }

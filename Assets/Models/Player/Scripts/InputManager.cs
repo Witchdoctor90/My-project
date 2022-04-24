@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
 	[SerializeField]private PlayerCmbt _playerCmbt;
 	[SerializeField]private Animator _anim;
 	[SerializeField]private GameObject inventory;
-
+	[SerializeField]private UIManager _uiManager;
 
 
 
@@ -28,9 +28,11 @@ public class InputManager : MonoBehaviour
 			if (inventory.activeInHierarchy) {
 				GetComponent<PlayerCtrl>().enabled = true;
 				inventory.SetActive (false);
+				_uiManager._healthBar.gameObject.SetActive(true);
 			} else {
 				GetComponent<PlayerCtrl>().enabled = false;
 				inventory.SetActive (true);
+				_uiManager._healthBar.gameObject.SetActive(false);
 			}
 		}
 			
